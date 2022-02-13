@@ -84,6 +84,33 @@ router.post('/memberinfo', (req, res, next) => {
     });
   });
 
+router.post('/updatemember', (req, res, next) => {
+    const updateQuery = `UPDATE ${MEMBER_INFO_TBL} SET MemberName=${db.escape(req.body.membername)}, MemberPoint=${db.escape(req.body.memberpoint)}, MemberLevelId=${db.escape(req.body.memberlevelid)},  RedeemPoints=${db.escape(req.body.redeempoints)} WHERE MemberCode = ${db.escape(req.body.membercode)};`;
+    db.query(updateQuery, (err, result) => {
+        if (err) {
+            return res.status(400).send({ 
+                status: 400,
+                msg: err 
+                });
+            }
+            return res.status(200).send({
+                status: 200,
+                msg: "Update Successfully"
+            });
+        });
+  });
+
+// Select All Member
+router.get('/retrievememberinfo', (req, res, next) => {
+    const checkQuery = `SELECT * FROM memberinfotbl;`;
+    db.query(checkQuery, (err, result) => {
+        return res.status(200).send({ 
+            status: 200,
+            briefnews: result
+        });
+    });
+});
+
 router.get('/briefnews', (req, res, next) => {
     const checkQuery = `SELECT BriefNews FROM newsinfotbl;`;
     db.query(checkQuery, (err, result) => {
