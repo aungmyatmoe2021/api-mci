@@ -20,7 +20,7 @@ router.post('/auth/register', (req, res, next) => {
         }
 
         // username is available
-        const insertUser = `INSERT INTO ${MEMBER_INFO_TBL}(MCode, MemberCode, MemberName, MemberPoint, PhoneID, MemberLevelId, RedeemPoints) VALUES(${db.escape(req.body.mcode)}, ${db.escape(req.body.membercode)}, ${db.escape(req.body.membername)}, '0', ${db.escape(req.body.phoneid)},'100001','0');`;
+        const insertUser = `INSERT INTO ${MEMBER_INFO_TBL}(MCode, MemberCode, MemberName, MemberPoint, PhoneID, MemberLevelId, RedeemPoints) VALUES(${db.escape(req.body.mcode)}, ${db.escape(req.body.membercode)}, ${db.escape(req.body.membername)}, '0', ${db.escape(req.body.phoneid)},'100000','0');`;
         db.query( insertUser, (err, result) => {
             if (err) {
                 return res.status(400).send({ 
@@ -95,7 +95,7 @@ router.get('/briefnews', (req, res, next) => {
 });
 
 router.get('/detailnewsall', (req, res, next) => {
-    const checkQuery = `SELECT * FROM newsinfotbl;`;
+    const checkQuery = `select Id, NewsInfoCode, RacesId, NewsInfoHeader,NewsInfoDetails,InfoTypeId,NewsImg,BriefNews,FeaturePost,CONCAT('https://myanmarcultureinformation.com/',SUBSTRING(ImagePath,3)) as ImagePath from newsinfotbl;`;
     db.query(checkQuery, (err, result) => {
         return res.status(200).send({ 
             status: 200,
@@ -105,7 +105,7 @@ router.get('/detailnewsall', (req, res, next) => {
 });
 
 router.post('/detailnews', (req, res, next) => {
-    const checkQuery = `SELECT * FROM newsinfotbl limit ${db.escape(req.body.from)},${db.escape(req.body.to)};`;
+    const checkQuery = `select Id, NewsInfoCode, RacesId, NewsInfoHeader,NewsInfoDetails,InfoTypeId,NewsImg,BriefNews,FeaturePost,CONCAT('https://myanmarcultureinformation.com/',SUBSTRING(ImagePath,3)) as ImagePath from newsinfotbl limit ${db.escape(req.body.from)},${db.escape(req.body.to)};`;
     console.log(checkQuery);
     db.query(checkQuery, (err, result) => {
         return res.status(200).send({ 
