@@ -122,7 +122,7 @@ router.get('/briefnews', (req, res, next) => {
 });
 
 router.get('/detailnewsall', (req, res, next) => {
-    const checkQuery = `select Id, NewsInfoCode, RacesId, NewsInfoHeader,NewsInfoDetails,InfoTypeId,NewsImg,BriefNews,FeaturePost,CONCAT('https://myanmarcultureinformation.com/',SUBSTRING(ImagePath,3)) as ImagePath from newsinfotbl;`;
+    const checkQuery = `select Id, NewsInfoCode, RacesId, NewsInfoHeader,NewsInfoDetails,InfoTypeId,NewsImg,BriefNews,FeaturePost,CONCAT('https://myanmarcultureinformation.com/',SUBSTRING(ImagePath,3)) as ImagePath from newsinfotbl order by Id desc;`;
     db.query(checkQuery, (err, result) => {
         return res.status(200).send({ 
             status: 200,
@@ -132,7 +132,7 @@ router.get('/detailnewsall', (req, res, next) => {
 });
 
 router.post('/detailnews', (req, res, next) => {
-    const checkQuery = `select Id, NewsInfoCode, RacesId, NewsInfoHeader,NewsInfoDetails,InfoTypeId,NewsImg,BriefNews,FeaturePost,CONCAT('https://myanmarcultureinformation.com/',SUBSTRING(ImagePath,3)) as ImagePath from newsinfotbl limit ${db.escape(req.body.from)},${db.escape(req.body.to)};`;
+    const checkQuery = `select Id, NewsInfoCode, RacesId, NewsInfoHeader,NewsInfoDetails,InfoTypeId,NewsImg,BriefNews,FeaturePost,CONCAT('https://myanmarcultureinformation.com/',SUBSTRING(ImagePath,3)) as ImagePath from newsinfotbl order by Id desc limit ${db.escape(req.body.from)},${db.escape(req.body.to)};`;
     console.log(checkQuery);
     db.query(checkQuery, (err, result) => {
         return res.status(200).send({ 
