@@ -144,7 +144,7 @@ router.post('/detailnews', (req, res, next) => {
 
 
 router.post('/updatepoint',(req,res) => {
-    const updateQuery = `UPDATE ${MEMBER_INFO_TBL} SET MemberPoint=${db.escape(req.body.memberpoint)} WHERE MemberName = ${db.escape(req.body.membername)} AND MemberCode = ${db.escape(req.body.membercode)} AND PhoneID = ${db.escape(req.body.phoneid)};`;
+    const updateQuery = `UPDATE ${MEMBER_INFO_TBL} SET RedeemPoints=${db.escape(req.body.redeempoints)} WHERE MemberName = ${db.escape(req.body.membername)} AND MemberCode = ${db.escape(req.body.membercode)} AND PhoneID = ${db.escape(req.body.phoneid)};`;
     db.query(updateQuery, (err, result) => {
         if (err) {
             return res.status(400).send({ 
