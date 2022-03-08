@@ -154,7 +154,10 @@ router.post('/updatepoint',(req,res) => {
             }
             return res.status(200).send({
                 status: 200,
-                memberpoint: req.body.memberpoint
+                membername:req.body.membername,
+                membercode:req.body.membercode,
+                phoneid:req.body.phoneid,
+                memberpoint: req.body.redeempoints
             });
         });
 });
